@@ -11,9 +11,11 @@ def main_page():
 
     if request.method == 'POST':
         week = request.form.get('week')
+        if not week:
+            week = 'Чётная'
         return render_template('timetable.html', timetable=timetable, week = week)
-    else:
-        return render_template('timetable.html', timetable=timetable, week = 'Чётная')
+
+    return render_template('timetable.html', timetable=timetable, week = 'Чётная')
 
 
 if __name__ == '__main__':
