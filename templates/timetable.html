@@ -10,55 +10,63 @@
     <style>
         button {
             display: inline;
-            width: 19.5%;
+            width: 40%;
         }
-
-        span {
-            display: inline;
-            width: 20%;
+        input[type=radio] {
+            width: 25px;
+            height: 25px;
         }
     </style>
 </head>
 
 <body>
 <h1 style="text-align: center" class="display-4">
-    <b>Расписание уроков</b>
+    <b>Расписание уроков ({{week}})</b>
 </h1>
 
-<div class="alert alert-secondary" role="alert" style="font-size:42px">
-    Нечетная неделя
-    <p style="display: inline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    </p>
-    Четная неделя
-</div>
+<br>
+<form class="login_form" method="post" style="margin-left: 10px">
+    <div class="form-group">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="week" id="Чётная" value="Чётная">
+
+            <label class="form-check-label" for="Чётная" style="font-size: 30px; margin-left: 10px;">
+                Чётная
+            </label>
+        </div>
+        <div class="form-check" >
+            <input class="form-check-input" type="radio" name="week" id="Нечётная" value="Нечётная">
+            <label class="form-check-label" for="Нечётная" style="font-size: 30px; margin-left: 10px">
+                Нечётная
+            </label>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-outline-dark" style="font-size: 20px">
+        Обновить
+    </button>
+</form>
+<br>
+<br>
+
 
 {% for day in timetable%}
-<h3 style="margin-left: 7%" class="display-4">
-    <b>{{day}}</b>
-</h3>
+<div class="alert alert-secondary" role="alert" style="font-size:42px;">
+    <b style="margin-left: 5%">{{day}}</b>
+</div>
 {% for lesson in range(timetable[day]['Время']|length)%}
-<button type="button" class="btn btn-outline-dark" style="font-size:30px">
-    {{timetable[day]['Нечётная']['Группа 1'][lesson]}}
-</button>
-<button type="button" class="btn btn-outline-dark" style="font-size:30px">
-    {{timetable[day]['Нечётная']['Группа 2'][lesson]}}
+<button type="button" class="btn btn-outline-dark" style="font-size:27px; margin-left: 5%">
+    {{timetable[day][week]['Группа 1'][lesson]}}
 </button>
 
-<button type="button" class="btn btn-dark" style="font-size:30px">
+<button type="button" class="btn btn-dark" style="font-size:27px; width: 10%">
     {{timetable[day]['Время'][lesson]}}
 </button>
 
-<button type="button" class="btn btn-outline-dark" style="font-size:30px">
-    {{timetable[day]['Чётная']['Группа 1'][lesson]}}
+<button type="button" class="btn btn-outline-dark" style="font-size:27px">
+    {{timetable[day][week]['Группа 2'][lesson]}}
 </button>
-<button type="button" class="btn btn-outline-dark" style="font-size:30px">
-    {{timetable[day]['Чётная']['Группа 2'][lesson]}}
-</button>
+
+
 <br>
 {% endfor %}
 <br>

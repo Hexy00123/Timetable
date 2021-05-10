@@ -1,15 +1,19 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import json
 import os
 
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def main_page():
     timetable = json.load(open("timetable.json", "r", encoding='utf-8'))
 
-    return render_template('timetable.html', timetable=timetable)
+    if request.method == 'POST':
+        week = request.form.get('week')
+        return render_template('timetable.html', timetable=timetable, week = week)
+    else:
+        return render_template('timetable.html', timetable=timetable, week = 'Чётная')
 
 
 if __name__ == '__main__':
